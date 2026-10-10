@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Дневник студента · 1 курс · 2026/2027</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M7 2v10M2 7h10' stroke='%2341604F' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#F1EDE4;color:#2B2F33;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+  font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.mono{font-family:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,"Liberation Mono",monospace}
+.page{max-width:1060px;margin:0 auto;padding:24px 18px 60px}
+
+/* ---------- шапка ---------- */
+.chart{background:#FFFFFF;border:1px solid #E2DBC9;border-radius:16px;padding:24px 26px 12px;
+  position:relative;box-shadow:0 16px 36px -28px rgba(43,47,51,.5)}
+.chart::before{content:"";position:absolute;top:0;left:24px;right:24px;height:3px;
+  border-radius:0 0 4px 4px;background:#41604F}
+.h-over{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#5E7D8C}
+h1{margin:8px 0 5px;font-size:27px;line-height:1.1;font-weight:700;letter-spacing:-.01em;color:#2B2F33}
+.h-sub{color:#575C61;font-size:14px}
+.fields{display:flex;flex-wrap:wrap;margin-top:18px;border-top:1px solid #EDE8DB;border-bottom:1px solid #EDE8DB;padding:11px 0}
+.field{padding:2px 20px;border-left:1px solid #EDE8DB}
+.field:first-child{padding-left:0;border-left:none}
+.f-l{display:block;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9B9585}
+.f-v{font-size:13.5px;font-weight:600;color:#2B2F33}
+.pulse{display:block;width:100%;height:22px;margin-top:10px;color:#5E7D8C;opacity:.5}
+
+/* ---------- просмотр без JavaScript (встроенный просмотрщик Telegram и т.п.) ---------- */
+.nojs{background:#FFFFFF;border:1px solid #E2DBC9;border-left:4px solid #A5834B;border-radius:14px;
+  padding:16px 18px;margin-top:14px;font-size:13.5px;color:#575C61;line-height:1.65}
+.nojs .nj-h{font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#A5834B;margin-bottom:6px}
+.nojs b{color:#2B2F33}
+
+/* ---------- панель управления ---------- */
+.panel{background:#FFFFFF;border:1px solid #E2DBC9;border-radius:14px;margin-top:14px;padding:12px 14px}
+.wbar{display:flex;align-items:center;gap:10px}
+.winfo{flex:1;min-width:0;text-align:center}
+.wline1{display:flex;justify-content:center;align-items:center;gap:9px;flex-wrap:wrap}
+.wtitle{font-size:15.5px;font-weight:800}
+.wpar{font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  padding:3px 10px;border-radius:999px;border:1px solid}
+.wpar.o{color:#435F6E;background:#E9EFF1;border-color:#D3DFE3}
+.wpar.e{color:#3A5443;background:#EAF0EA;border-color:#D5E0D6}
+.wline2{font-size:12px;color:#9B9585;margin-top:2px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-top:1px solid #EDE8DB;margin-top:10px;padding-top:11px}
+.btn{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;gap:7px;
+  background:#FFFFFF;border:1px solid #E2DBC9;border-radius:10px;color:#435F6E;
+  font:inherit;font-size:12.5px;font-weight:700;line-height:1;padding:10px 13px;cursor:pointer;
+  transition:background .15s,border-color .15s}
+.btn:hover{background:#E9EFF1;border-color:#D3DFE3}
+.btn:focus-visible{outline:2px solid #5E7D8C;outline-offset:2px}
+.btn:disabled{opacity:.35;cursor:default;background:#FFFFFF}
+.btn.ico{padding:10px 11px}
+.btn svg{display:block;flex:none}
+.datewrap{display:inline-flex;align-items:center;gap:7px;border:1px solid #E2DBC9;border-radius:10px;
+  padding:7px 11px;background:#FFFFFF;font-size:11px;font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;color:#9B9585}
+.datewrap svg{display:block;flex:none}
+input[type="date"]{border:none;background:none;font:inherit;font-size:13px;color:#2B2F33;
+  font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;padding:1px 0;outline:none;width:128px}
+.spacer{flex:1}
+.cnt{font-size:12px;color:#9B9585;white-space:nowrap}
+.sync{font-size:11px;font-weight:700;white-space:nowrap;min-height:1em}
+.sync.s-saving{color:#9B9585}
+.sync.s-ok{color:#3A5443}
+.sync.s-err{color:#A56A5A}
+
+/* ---------- сетка дней ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px;margin-top:14px;align-items:start}
+.day{background:#FFFFFF;border:1px solid #E2DBC9;border-radius:14px;padding:13px 13px 7px;min-width:0;position:relative}
+.day.today{border-color:#8C8677;box-shadow:0 0 0 1px #8C8677}
+.day-h{display:flex;align-items:baseline;gap:8px;padding-bottom:8px;border-bottom:1px solid #EDE8DB;margin-bottom:11px}
+.dn{font-size:12px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#2B2F33}
+.dd{font-size:11.5px;color:#9B9585}
+.dtoday{margin-left:auto;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  background:#2B2F33;color:#F4F1E8;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.empty{color:#A9A392;font-style:italic;font-size:12.5px;text-align:center;padding:18px 0 16px}
+
+/* ---------- занятие ---------- */
+.ls{margin-bottom:13px}
+.l-head{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.lt{font-size:11.5px;color:#6B7076;white-space:nowrap}
+.lsubj{font-size:13.5px;font-weight:700;line-height:1.3}
+.tag{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.04em;line-height:1;
+  padding:3px 8px;border-radius:999px;white-space:nowrap}
+.t-online{color:#435F6E;background:#E9EFF1;border:1px solid #D3DFE3}
+.l-meta{font-size:11.5px;color:#9B9585;margin-top:2px}
+
+/* ---------- поле ДЗ ---------- */
+.hw-box{margin-top:7px;border-left:3px solid transparent;padding-left:9px;transition:border-color .2s}
+.hw-box.filled{border-left-color:#41604F}
+textarea.hw{display:block;width:100%;min-height:64px;resize:none;overflow:hidden;
+  background:#FDFCF7;border:1px solid #ECE6D6;border-radius:9px;padding:9px 11px;
+  font:inherit;font-size:13px;line-height:1.5;color:#2B2F33;outline:none;
+  transition:border-color .15s,background .15s,box-shadow .15s}
+textarea.hw::placeholder{color:#B7B1A0}
+textarea.hw:hover{border-color:#D8D0BC}
+textarea.hw:focus{border-color:#5E7D8C;background:#FFFFFF;box-shadow:0 0 0 3px rgba(94,125,140,.13)}
+.hw-box.filled textarea.hw{background:#FBFAF2}
+.hw-print{display:none}
+@media (pointer:coarse){textarea.hw{font-size:16px}}
+
+/* ---------- уведомление ---------- */
+.notice{position:fixed;left:50%;bottom:18px;transform:translate(-50%,10px);z-index:60;
+  background:#2B2F33;color:#F4F1E8;font-size:12.5px;padding:10px 17px;border-radius:999px;
+  opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;max-width:92%;text-align:center}
+.notice.on{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- подвал ---------- */
+.foot{margin-top:26px;text-align:center;color:#9B9585;font-size:11.5px;line-height:1.7}
+.foot .cross{display:block;margin:0 auto 7px}
+
+/* ---------- адаптив ---------- */
+@media (max-width:640px){
+  .page{padding:14px 9px 40px}
+  .chart{padding:18px 16px 8px}
+  h1{font-size:23px}
+  .field{padding:2px 12px}
+  .grid{grid-template-columns:1fr;gap:10px}
+  .spacer{display:none}
+  .panel{padding:10px 10px}
+}
+
+/* ---------- печать ---------- */
+@media print{
+  @page{size:A4;margin:11mm}
+  body{background:#FFFFFF;font-size:12px}
+  .page{max-width:none;padding:0}
+  .actions,.wbar .btn,.notice{display:none!important}
+  .chart{box-shadow:none;padding:14px 16px 6px}
+  h1{font-size:20px;margin:5px 0 3px}
+  .fields{margin-top:10px;padding:8px 0}
+  .pulse{height:12px;margin-top:4px}
+  .panel{padding:6px 10px}
+  .grid{grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}
+  .day{break-inside:avoid;page-break-inside:avoid;padding:9px 10px 5px}
+  textarea.hw{display:none!important}
+  .hw-box:not(.filled){display:none}
+  .hw-box.filled{border-left-color:#41604F}
+  .hw-print{display:block;font-size:10.5px;line-height:1.45;white-space:pre-wrap;color:#2B2F33;
+    margin-top:5px;padding-top:2px}
+  .ls{margin-bottom:9px}
+  .foot{margin-top:10px}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="chart">
+  <div class="h-over">Личный дневник · расписание и домашние задания</div>
+  <h1>Дневник студента</h1>
+  <div class="h-sub">2026/2027 учебный год · осенний семестр</div>
+  <div class="fields">
+    <div class="field"><span class="f-l">Курс</span><span class="f-v">1</span></div>
+    <div class="field"><span class="f-l">Форма обучения</span><span class="f-v">очная</span></div>
+    <div class="field"><span class="f-l">Уровень</span><span class="f-v">специалитет</span></div>
+    <div class="field"><span class="f-l">Недели</span><span class="f-v">1–18 · 31.08 – 31.12.2026</span></div>
+  </div>
+  <svg class="pulse" viewBox="0 0 1000 24" preserveAspectRatio="none" aria-hidden="true">
+    <polyline points="0,12 372,12 390,12 398,3 405,21 412,1 419,22 426,9 434,12 1000,12"
+      fill="none" stroke="currentColor" stroke-width="1.6" vector-effect="non-scaling-stroke"
+      stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+</header>
+
+<noscript>
+  <style>.panel,.grid,.foot{display:none!important}</style>
+  <div class="nojs">
+    <div class="nj-h">Нужен обычный браузер</div>
+    <b>Дневник не может здесь запуститься.</b><br>
+    В этом окне отключены сценарии (JavaScript), а без них дневник не переключает недели
+    и не сохраняет домашние задания.<br><br>
+    • Открыли <b>сайт по ссылке</b> — откройте её в обычном браузере
+      (Chrome, Safari, Firefox): в Telegram нажмите ⋮ → «Открыть в браузере».<br>
+    • Открыли <b>скачанный файл</b> — на Android сохраните его в загрузки и откройте через Chrome;
+      на компьютере — двойным кликом.
+  </div>
+</noscript>
+
+<section class="panel">
+  <div class="wbar">
+    <button id="wPrev" class="btn ico" aria-label="Предыдущая неделя" title="Предыдущая неделя">
+      <svg width="13" height="13" viewBox="0 0 12 12"><path d="M7.5 2 4 6l3.5 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="winfo">
+      <div class="wline1">
+        <span class="wtitle" id="wNum">Неделя 1</span>
+        <span class="wpar o" id="wPar">нечётная</span>
+      </div>
+      <div class="wline2 mono" id="wRange"></div>
+    </div>
+    <button id="wNext" class="btn ico" aria-label="Следующая неделя" title="Следующая неделя">
+      <svg width="13" height="13" viewBox="0 0 12 12"><path d="M4.5 2 8 6l-3.5 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+  <div class="actions">
+    <button id="btnToday" class="btn">
+      <svg width="13" height="13" viewBox="0 0 12 12"><circle cx="6" cy="6" r="4.4" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="6" cy="6" r="1.6" fill="currentColor"/></svg>
+      Сегодня
+    </button>
+    <label class="datewrap">
+      <svg width="13" height="13" viewBox="0 0 12 12"><rect x="1.4" y="2.2" width="9.2" height="8.2" rx="1.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M3.4 1v2.4M8.6 1v2.4M1.4 5.2h9.2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      Дата
+      <input type="date" id="datePick" min="2026-08-31" max="2027-01-03">
+    </label>
+    <span class="spacer"></span>
+    <span class="sync" id="syncState" role="status"></span>
+    <span class="cnt mono" id="wCnt"></span>
+    <button id="btnExport" class="btn">
+      <svg width="13" height="13" viewBox="0 0 12 12"><path d="M6 1.2v6.6M3.2 5.4 6 8.2l2.8-2.8M1.5 10.8h9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Экспорт ДЗ
+    </button>
+    <button id="btnImport" class="btn">
+      <svg width="13" height="13" viewBox="0 0 12 12"><path d="M6 7.8V1.6M3.2 4.4 6 1.6l2.8 2.8M1.5 10.8h9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Импорт ДЗ
+    </button>
+    <input type="file" id="fileImport" accept=".json,application/json" style="display:none">
+    <button id="btnPrint" class="btn">
+      <svg width="13" height="13" viewBox="0 0 12 12"><path d="M3.4 4V1.6h5.2V4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><rect x="1.4" y="4" width="9.2" height="4.2" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3.4 8.2h5.2v2.2H3.4z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+      Печать
+    </button>
+  </div>
+</section>
+
+<main class="grid" id="grid" aria-live="polite"></main>
+
+<footer class="foot">
+  <svg class="cross" width="13" height="13" viewBox="0 0 14 14" aria-hidden="true">
+    <path d="M7 2v10M2 7h10" stroke="#41604F" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+  <span id="storageNote">Дневник хранится только в вашем браузере (localStorage) · «Экспорт ДЗ» создаёт резервную копию</span><br>
+  Чётность недель отсчитывается от 31.08.2026 (нечётная неделя № 1) · осенний семестр 2026/2027
+</footer>
+
+</div>
+
+<div class="notice" id="notice"></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ================= параметры семестра ================= */
+var SEM_START = '2026-08-31';   /* понедельник, нечётная неделя № 1 */
+var SEM_END   = '2027-01-03';   /* воскресенье недели № 18 */
+var WEEKS_TOTAL = 18;
+var STORE = 'diary-hw-1k-2026-2027-v1';
+
+var DAY_NAMES = {1:'Понедельник',2:'Вторник',3:'Среда',4:'Четверг',5:'Пятница'};
+
+/* ================= расписание =================
+   par:'o' — нечётные недели, 'e' — чётные
+   Условия:
+     only:[даты] — только в эти даты (приоритет над чётностью)
+     ex:[даты]   — кроме этих дат
+     from:'дата' — начиная с даты (включительно)
+     to:'дата'   — по дату (включительно)                         */
+var SCHED = {
+1:[
+  {par:'o',t:'12:30–14:00',s:'Анатомия и физиология ЦНС',p:'Бочкарева А.Г.',r:'Кибальчича 6 · ауд. 304/210'},
+  {par:'o',t:'14:20–15:50',s:'Анатомия и физиология ЦНС',p:'Бочкарева А.Г.',r:'Кибальчича 6 · ауд. 506'},
+  {par:'e',t:'09:00–10:30',s:'Иностранный язык',p:'Мелконян',r:'ауд. 33'},
+  {par:'e',t:'10:40–12:10',s:'Иностранный язык',p:'Мелконян',r:'ауд. 33'}
+],
+2:[
+  {par:'o',t:'10:40–12:10',s:'Общая психология (с практикумом)',p:'Уманская Е.Г.',r:'ауд. 39'},
+  {par:'o',t:'12:30–14:00',s:'Общий психологический практикум',r:'ауд. 39'},
+  {par:'o',t:'14:20–15:50',s:'Общий психологический практикум',r:'ауд. 39'},
+  {par:'o',t:'16:00–17:30',s:'Учебная практика (науч.-иссл. работа)'},
+  {par:'e',t:'10:40–12:10',s:'Общая психология (с практикумом)',p:'Уманская Е.Г.',r:'ауд. 33'},
+  {par:'e',t:'12:30–14:00',s:'Качественные и количественные методы псих. иссл.',r:'ауд. 39',only:['2026-09-22','2026-10-20','2026-11-17','2026-12-15']},
+  {par:'e',t:'12:30–14:00',s:'Введение в профессию',r:'ауд. 39',only:['2026-10-06','2026-11-03','2026-12-01','2026-12-29']},
+  {par:'e',t:'14:20–15:50',s:'Качественные и количественные методы псих. иссл.',r:'ауд. 39',only:['2026-09-22','2026-10-20','2026-11-17','2026-12-15']},
+  {par:'e',t:'14:20–15:50',s:'Введение в профессию',r:'ауд. 39',only:['2026-10-06','2026-11-03','2026-12-01','2026-12-29']},
+  {par:'e',t:'16:00–17:30',s:'Учебная практика (науч.-иссл. работа)'}
+],
+3:[
+  {par:'o',t:'09:00–10:30',s:'Основы российской государственности',p:'Чертков А.С.',r:'ауд. 39'},
+  {par:'o',t:'10:40–12:10',s:'Основы российской государственности',p:'Чертков А.С.',r:'ауд. 39'},
+  {par:'o',t:'12:30–14:00',s:'Основы российской государственности',p:'Чертков А.С.',r:'ауд. 39',ex:['2026-09-17','2026-09-30']},
+  {par:'o',t:'14:20–15:50',s:'Качественные и количественные методы псих. иссл.',r:'ауд. 26',from:'2026-11-18'},
+  {par:'o',t:'16:00–17:30',s:'История',p:'Юдин Е.Е.',ol:1},
+  {par:'o',t:'17:40–19:10',s:'История',p:'Юдин Е.Е.',ol:1},
+  {par:'e',t:'14:20–15:50',s:'Качественные и количественные методы псих. иссл.',r:'ауд. 26',from:'2026-11-18'},
+  {par:'e',t:'16:00–17:30',s:'Качественные и количественные методы псих. иссл.',r:'ауд. 26',from:'2026-11-18'}
+],
+4:[
+  {par:'o',t:'09:00–10:30',s:'Речевые практики',p:'Сабурова С.В.',r:'ауд. 33'},
+  {par:'o',t:'10:40–12:10',s:'Речевые практики',p:'Сабурова С.В.',r:'ауд. 33'},
+  {par:'o',t:'11:30–14:00',s:'История',p:'Юдин Е.Е.',r:'ауд. 34',ex:['2026-09-17','2026-10-01']},
+  {par:'o',t:'17:40–19:10',s:'Педагогика',p:'Тимохина Ю.Е.',r:'ауд. 39',only:['2026-09-24','2026-10-22']},
+  {par:'e',t:'12:30–14:00',s:'Введение в профессию',r:'ауд. 26'},
+  {par:'e',t:'14:20–15:50',s:'Введение в профессию',r:'ауд. 26'},
+  {par:'e',t:'16:00–17:30',s:'Педагогика',p:'Тимохина Ю.Е.',r:'ауд. 39',to:'2026-12-03'}
+],
+5:[
+  {par:'o',t:'14:20–15:50',s:'Физическая культура и спорт',p:'Леонова К.А.',r:'Кибальчича 6'},
+  {par:'e',t:'09:00–10:30',s:'Педагогика',p:'Тимохина Ю.Е.',r:'ауд. 33',from:'2026-10-09',to:'2026-12-04'},
+  {par:'e',t:'10:40–12:10',s:'Педагогика',p:'Тимохина Ю.Е.',r:'ауд. 33',from:'2026-10-09',to:'2026-12-04'},
+  {par:'e',t:'14:20–15:50',s:'Физическая культура и спорт',p:'Леонова К.А.',r:'Кибальчича 6'}
+]
+};
+
+/* ================= даты (без влияния перехода на летнее время) ================= */
+function pad(n){return (n<10?'0':'')+n;}
+function isoLocal(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function todayIso(){return isoLocal(new Date());}
+function utc(iso){var p=iso.split('-');return Date.UTC(+p[0],(+p[1])-1,+p[2]);}
+function fromUtc(t){var d=new Date(t);return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate());}
+function addDays(iso,n){return fromUtc(utc(iso)+n*86400000);}
+function weekNumOf(iso){return Math.floor(Math.floor((utc(iso)-utc(SEM_START))/86400000)/7)+1;}
+function dmy(iso){return iso.slice(8,10)+'.'+iso.slice(5,7);}
+
+/* ================= видимость пар ================= */
+function visible(dayIdx,iso){
+  var par=(weekNumOf(iso)%2===1)?'o':'e';
+  var out=[],list=SCHED[dayIdx],i,ls;
+  for(i=0;i<list.length;i++){
+    ls=list[i];
+    if(ls.only){ if(ls.only.indexOf(iso)>=0){out.push(ls);} continue; }
+    if(ls.par!==par){continue;}
+    if(ls.ex&&ls.ex.indexOf(iso)>=0){continue;}
+    if(ls.from&&iso<ls.from){continue;}
+    if(ls.to&&iso>ls.to){continue;}
+    out.push(ls);
+  }
+  out.sort(function(a,b){return a.t<b.t?-1:1;});
+  return out;
+}
+
+/* ================= хранилище ДЗ: сервер (если открыт по ссылке) или localStorage ================= */
+var HOSTED=(location.protocol==='http:'||location.protocol==='https:');
+var STATIC=false;  /* https-хостинг без сервера (напр., Neocities): localStorage */
+var hw={}, storageOk=true, warned=false, saveTimer=null, syncState='idle';
+
+try{
+  var raw=localStorage.getItem(STORE);
+  if(raw){var o=JSON.parse(raw); if(o&&typeof o==='object'&&!Array.isArray(o)){hw=o;}}
+}catch(e){storageOk=false;}
+
+/* --- индикатор синхронизации --- */
+function setSync(st){
+  syncState=st;
+  var el=document.getElementById('syncState');
+  if(!el){return;}
+  if(st==='saving'){el.textContent='сохранение…';el.className='sync s-saving';}
+  else if(st==='ok'){el.textContent='✓ сохранено';el.className='sync s-ok';}
+  else if(st==='err'){el.textContent='⚠ нет соединения';el.className='sync s-err';}
+  else{el.textContent='';el.className='sync';}
+}
+
+/* --- отправка на сервер (fetch с запасным XHR): сливаются только переданные ключи --- */
+function postHW(payload,onOk,onErr){
+  var body=JSON.stringify(payload);
+  if(typeof fetch==='function'){
+    fetch('/api/hw',{method:'POST',headers:{'Content-Type':'application/json'},body:body,keepalive:true})
+      .then(function(r){if(r.ok){onOk();}else{onErr();}})
+      .catch(onErr);
+  }else{
+    try{
+      var x=new XMLHttpRequest();
+      x.open('POST','/api/hw',true);
+      x.setRequestHeader('Content-Type','application/json');
+      x.onreadystatechange=function(){
+        if(x.readyState===4){
+          if(x.status>=200&&x.status<300){onOk();}else{onErr();}
+        }
+      };
+      x.send(body);
+    }catch(e){onErr();}
+  }
+}
+
+/* --- загрузка с сервера --- */
+function loadFromServer(cb){
+  if(typeof fetch==='function'){
+    fetch('/api/hw',{cache:'no-store'})
+      .then(function(r){return r.json();})
+      .then(function(d){cb(d);})
+      .catch(function(){cb(null);});
+  }else{
+    try{
+      var x=new XMLHttpRequest();
+      x.open('GET','/api/hw',true);
+      x.onreadystatechange=function(){
+        if(x.readyState===4){
+          var d=null;
+          try{d=JSON.parse(x.responseText);}catch(e){}
+          cb((x.status>=200&&x.status<300)?d:null);
+        }
+      };
+      x.send();
+    }catch(e){cb(null);}
+  }
+}
+
+var dirty={};  /* несохранённые изменения: ключ -> значение ('' = удалить) */
+
+/* --- проверка: есть ли на этом хостинге серверное API --- */
+function probeApi(cb){
+  var done=false;
+  function fin(v){if(!done){done=true;cb(v);}}
+  if(typeof fetch==='function'){
+    fetch('/api/ping',{cache:'no-store'})
+      .then(function(r){return r.text();})
+      .then(function(t){
+        var j=null;
+        try{j=JSON.parse(t);}catch(e){}
+        fin(!!(j&&j.app==='diary'));
+      })
+      .catch(function(){fin(false);});
+  }else{
+    try{
+      var x=new XMLHttpRequest();
+      x.open('GET','/api/ping',true);
+      x.onreadystatechange=function(){
+        if(x.readyState===4){
+          var j=null;
+          try{j=JSON.parse(x.responseText);}catch(e){}
+          fin(!!(j&&j.app==='diary'));
+        }
+      };
+      x.send();
+    }catch(e){fin(false);}
+  }
+  setTimeout(function(){fin(false);},4000);
+}
+
+function persistNow(){
+  if(HOSTED){
+    var body={},k,n=0;
+    for(k in dirty){
+      if(Object.prototype.hasOwnProperty.call(dirty,k)){body[k]=dirty[k];n++;}
+    }
+    if(n===0){
+      if(syncState!=='err'){setSync('ok');}
+      return;
+    }
+    setSync('saving');
+    postHW(body,function(){
+      var k2;
+      for(k2 in body){
+        if(Object.prototype.hasOwnProperty.call(body,k2)&&dirty[k2]===body[k2]){delete dirty[k2];}
+      }
+      setSync('ok');
+    },function(){setSync('err');});
+  }else{
+    try{localStorage.setItem(STORE,JSON.stringify(hw));}
+    catch(e){
+      if(!warned){warned=true;notice('Автосохранение недоступно в этом браузере');}
+    }
+  }
+}
+
+function save(){
+  if(saveTimer){clearTimeout(saveTimer);}
+  saveTimer=setTimeout(function(){
+    saveTimer=null;
+    persistNow();
+  },250);
+}
+
+function flush(){
+  if(saveTimer){clearTimeout(saveTimer);saveTimer=null;}
+  if(!HOSTED){
+    try{localStorage.setItem(STORE,JSON.stringify(hw));}catch(e){}
+    return;
+  }
+  try{localStorage.setItem(STORE,JSON.stringify(hw));}catch(e){}
+  var body={},k,n=0;
+  for(k in dirty){
+    if(Object.prototype.hasOwnProperty.call(dirty,k)){body[k]=dirty[k];n++;}
+  }
+  if(n===0){return;}  /* нечего отправлять — не трогаем сервер */
+  var clearSent=function(){
+    var k2;
+    for(k2 in body){
+      if(Object.prototype.hasOwnProperty.call(body,k2)&&dirty[k2]===body[k2]){delete dirty[k2];}
+    }
+  };
+  if(navigator.sendBeacon){
+    try{
+      navigator.sendBeacon('/api/hw',new Blob([JSON.stringify(body)],{type:'application/json'}));
+      clearSent();
+      return;
+    }catch(e){}
+  }
+  try{
+    fetch('/api/hw',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),keepalive:true});
+    clearSent();
+  }catch(e){}
+}
+
+if(window.addEventListener){
+  window.addEventListener('online',function(){
+    if(HOSTED&&syncState==='err'){persistNow();}
+  });
+}
+
+/* ================= элементы ================= */
+var grid=document.getElementById('grid'),
+    wNumEl=document.getElementById('wNum'),
+    wParEl=document.getElementById('wPar'),
+    wRangeEl=document.getElementById('wRange'),
+    wCntEl=document.getElementById('wCnt'),
+    prevBtn=document.getElementById('wPrev'),
+    nextBtn=document.getElementById('wNext'),
+    todayBtn=document.getElementById('btnToday'),
+    datePick=document.getElementById('datePick'),
+    exportBtn=document.getElementById('btnExport'),
+    printBtn=document.getElementById('btnPrint'),
+    noticeEl=document.getElementById('notice');
+
+/* ================= уведомление ================= */
+var noticeTimer=null;
+function notice(msg){
+  noticeEl.textContent=msg;
+  noticeEl.classList.add('on');
+  if(noticeTimer){clearTimeout(noticeTimer);}
+  noticeTimer=setTimeout(function(){noticeEl.classList.remove('on');},3500);
+}
+
+/* ================= текущая неделя при загрузке ================= */
+var currentWeek=(function(){
+  var wn=weekNumOf(todayIso());
+  if(wn<1){return 1;}
+  if(wn>WEEKS_TOTAL){return WEEKS_TOTAL;}
+  return wn;
+})();
+
+/* ================= отрисовка ================= */
+function lessonHtml(ls,dayIso){
+  var meta=[];
+  if(ls.p){meta.push(ls.p);}
+  if(ls.r){meta.push(ls.r);}
+  return '<div class="ls">'
+    +'<div class="l-head"><span class="lt mono">'+ls.t+'</span>'
+    +'<span class="lsubj">'+ls.s+'</span>'
+    +(ls.ol?'<span class="tag t-online">онлайн</span>':'')
+    +'</div>'
+    +(meta.length?'<div class="l-meta">'+meta.join(' · ')+'</div>':'')
+    +'<div class="hw-box">'
+    +'<textarea class="hw" rows="3" placeholder="Домашнее задание…" spellcheck="false" data-key="'+dayIso+'|'+ls.t+'"></textarea>'
+    +'<div class="hw-print"></div>'
+    +'</div>'
+    +'</div>';
+}
+
+function render(){
+  var mon=addDays(SEM_START,(currentWeek-1)*7);
+  var parity=(currentWeek%2===1)?'o':'e';
+  var today=todayIso();
+
+  wNumEl.textContent='Неделя '+currentWeek;
+  wRangeEl.textContent=dmy(mon)+' – '+dmy(addDays(mon,6));
+  wParEl.textContent=(parity==='o'?'нечётная':'чётная');
+  wParEl.className='wpar '+(parity==='o'?'o':'e');
+  prevBtn.disabled=(currentWeek<=1);
+  nextBtn.disabled=(currentWeek>=WEEKS_TOTAL);
+  datePick.value=mon;
+
+  var html='',d,i,dayIso,ls;
+  for(d=1;d<=5;d++){
+    dayIso=addDays(mon,d-1);
+    html+='<section class="day'+(dayIso===today?' today':'')+'">'
+      +'<div class="day-h"><span class="dn">'+DAY_NAMES[d]+'</span>'
+      +'<span class="dd mono">'+dmy(dayIso)+'</span>'
+      +(dayIso===today?'<span class="dtoday">сегодня</span>':'')
+      +'</div>';
+    ls=visible(d,dayIso);
+    if(!ls.length){
+      html+='<div class="empty">занятий нет</div>';
+    }else{
+      for(i=0;i<ls.length;i++){html+=lessonHtml(ls[i],dayIso);}
+    }
+    html+='</section>';
+  }
+  grid.innerHTML=html;
+
+  var tas=grid.getElementsByTagName('textarea');
+  for(i=0;i<tas.length;i++){
+    var ta=tas[i],k=ta.getAttribute('data-key');
+    ta.value=hw[k]||'';
+    syncBox(ta);
+    fit(ta);
+  }
+  updateCnt();
+}
+
+function syncBox(ta){
+  var box=ta.parentNode;
+  var pr=box.querySelector('.hw-print');
+  if(ta.value){box.classList.add('filled');}
+  else{box.classList.remove('filled');}
+  if(pr){pr.textContent=ta.value;}
+}
+
+function fit(ta){
+  ta.style.height='auto';
+  ta.style.height=(ta.scrollHeight+2)+'px';
+}
+
+function updateCnt(){
+  var tas=grid.getElementsByTagName('textarea'),i,f=0;
+  for(i=0;i<tas.length;i++){if(tas[i].value){f++;}}
+  wCntEl.textContent='ДЗ: '+f+' / '+tas.length;
+}
+
+/* ================= навигация ================= */
+function goWeek(n,scroll){
+  n=Math.max(1,Math.min(WEEKS_TOTAL,n));
+  currentWeek=n;
+  render();
+  if(scroll){
+    try{document.querySelector('.panel').scrollIntoView({behavior:'smooth',block:'start'});}
+    catch(e){window.scrollTo(0,0);}
+  }
+}
+
+prevBtn.onclick=function(){goWeek(currentWeek-1,true);};
+nextBtn.onclick=function(){goWeek(currentWeek+1,true);};
+
+todayBtn.onclick=function(){
+  var wn=weekNumOf(todayIso());
+  if(wn<1||wn>WEEKS_TOTAL){
+    notice('Сегодня вне семестра — показана ближайшая неделя');
+    goWeek(Math.max(1,Math.min(WEEKS_TOTAL,wn)),true);
+  }else{
+    goWeek(wn,true);
+  }
+};
+
+datePick.onchange=function(){
+  var v=this.value;
+  if(!v){return;}
+  var wn=weekNumOf(v);
+  if(wn<1||wn>WEEKS_TOTAL){
+    notice('Дата вне семестра (31.08.2026 – 03.01.2027)');
+    wn=Math.max(1,Math.min(WEEKS_TOTAL,wn));
+  }
+  goWeek(wn,true);
+};
+
+document.addEventListener('keydown',function(e){
+  var t=e.target;
+  if(t&&(t.tagName==='TEXTAREA'||t.tagName==='INPUT')){return;}
+  if(e.key==='ArrowLeft'){goWeek(currentWeek-1,true);}
+  else if(e.key==='ArrowRight'){goWeek(currentWeek+1,true);}
+});
+
+/* ================= ввод ДЗ ================= */
+grid.addEventListener('input',function(e){
+  var ta=e.target;
+  if(!ta||ta.tagName!=='TEXTAREA'){return;}
+  var k=ta.getAttribute('data-key');
+  if(ta.value){hw[k]=ta.value;dirty[k]=ta.value;}
+  else{delete hw[k];dirty[k]='';}
+  save();
+  syncBox(ta);
+  fit(ta);
+  updateCnt();
+});
+
+window.addEventListener('pagehide',flush);
+window.addEventListener('beforeunload',flush);
+if(window.addEventListener){
+  document.addEventListener('visibilitychange',function(){
+    if(document.visibilityState==='hidden'){flush();}
+  });
+}
+
+var rsTimer=null;
+window.addEventListener('resize',function(){
+  if(rsTimer){clearTimeout(rsTimer);}
+  rsTimer=setTimeout(function(){
+    var tas=grid.getElementsByTagName('textarea'),i;
+    for(i=0;i<tas.length;i++){fit(tas[i]);}
+  },150);
+});
+
+/* ================= экспорт ================= */
+exportBtn.onclick=function(){
+  var n=0,k;
+  for(k in hw){if(Object.prototype.hasOwnProperty.call(hw,k)){n++;}}
+  var data={
+    app:'Дневник студента — домашние задания',
+    semester:'2026/2027 · осенний · 1 курс · специалитет',
+    exported:new Date().toISOString(),
+    total:n,
+    homework:hw
+  };
+  try{
+    var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json;charset=utf-8'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;
+    a.download='dz-backup-'+todayIso()+'.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},3000);
+    notice(n?('Файл с '+n+' записями ДЗ сохранён'):'Файл сохранён (ДЗ пока пусты)');
+  }catch(e){
+    notice('Не удалось создать файл в этом браузере');
+  }
+};
+
+/* ================= импорт ДЗ (из JSON-бэкапа) ================= */
+var importBtn=document.getElementById('btnImport'),
+    fileImp=document.getElementById('fileImport');
+importBtn.onclick=function(){fileImp.click();};
+fileImp.onchange=function(){
+  var f=this.files&&this.files[0];
+  this.value='';
+  if(!f){return;}
+  var fr=new FileReader();
+  fr.onload=function(){
+    try{
+      var d=JSON.parse(fr.result);
+      var src=(d&&typeof d==='object'&&!Array.isArray(d))?(d.homework||d):null;
+      if(!src||typeof src!=='object'||Array.isArray(src)){throw new Error('bad');}
+      var n=0,k;
+      for(k in src){
+        if(Object.prototype.hasOwnProperty.call(src,k)&&typeof src[k]==='string'){hw[k]=src[k];n++;}
+      }
+      dirty={};
+      for(k in hw){
+        if(Object.prototype.hasOwnProperty.call(hw,k)){dirty[k]=hw[k];}
+      }
+      persistNow();
+      render();
+      notice('Импортировано записей: '+n);
+    }catch(e){
+      notice('Не удалось прочитать файл — ожидается JSON из «Экспорта ДЗ»');
+    }
+  };
+  fr.readAsText(f,'utf-8');
+};
+
+/* ================= печать ================= */
+printBtn.onclick=function(){flush();window.print();};
+
+/* ================= запуск ================= */
+function boot(loaded){
+  if(HOSTED){
+    if(loaded&&syncState==='idle'){
+      var el=document.getElementById('syncState');
+      if(el){el.textContent='✓ загружено';el.className='sync s-ok';}
+    }
+    var sn=document.getElementById('storageNote');
+    if(sn){sn.textContent='Данные сохраняются на сервере — дневник доступен с любого устройства по этой ссылке · «Экспорт ДЗ» — резервная копия';}
+  }else if(STATIC){
+    var sn2=document.getElementById('storageNote');
+    if(sn2){sn2.textContent='Данные хранятся в этом браузере · «Экспорт ДЗ» — резервная копия · открывайте дневник всегда одним и тем же способом';}
+  }else if(!storageOk){
+    setTimeout(function(){notice('localStorage недоступен — ДЗ не сохранятся между сеансами');},600);
+  }
+  render();
+}
+
+if(HOSTED){
+  probeApi(function(hasApi){
+    if(!hasApi){
+      HOSTED=false;
+      STATIC=true;
+      boot(true);
+      return;
+    }
+    loadFromServer(function(d){
+    var loaded=false;
+    if(d&&typeof d==='object'&&!Array.isArray(d)){
+      loaded=true;
+      var n=0,k,sentinel=false;
+      for(k in d){
+        if(!Object.prototype.hasOwnProperty.call(d,k)){continue;}
+        if(k.charAt(0)==='_'){if(k==='_init'){sentinel=true;}continue;}
+        n++;
+      }
+      if(n>0||sentinel){
+        hw={};
+        for(k in d){
+          if(Object.prototype.hasOwnProperty.call(d,k)&&k.charAt(0)!=='_'){hw[k]=d[k];}
+        }
+      }else{
+        var m=0;
+        for(k in hw){if(Object.prototype.hasOwnProperty.call(hw,k)){m++;}}
+        if(m>0){
+          dirty={};
+          for(k in hw){
+            if(Object.prototype.hasOwnProperty.call(hw,k)){dirty[k]=hw[k];}
+          }
+          persistNow();
+        }
+      }
+    }else{
+      setSync('err');
+      notice('Нет соединения с сервером — открыта локальная копия');
+    }
+    boot(loaded);
+    });
+  });
+}else{
+  boot(true);
+}
+})();
+</script>
+</body>
+</html>
